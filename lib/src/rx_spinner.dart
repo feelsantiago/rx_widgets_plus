@@ -3,10 +3,9 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:rx_command/rx_command.dart';
-import 'package:rx_widgets/src/builder_functions.dart';
-import 'package:rx_widgets/src/widget_selector.dart';
+import 'package:rx_widgets_plus/src/builder_functions.dart';
+import 'package:rx_widgets_plus/src/widget_selector.dart';
 
 /// Spinner/Busy Indicator that reacts on the output of a `Stream<bool>` it starts running as soon as a `true` value is received
 /// until the next `false`is emitted. If the Spinner should replace another Widget while Spinning this widget can be passed as `normal` parameter.
@@ -47,23 +46,20 @@ class RxSpinner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var spinner =
-        !kIsWeb && ((platform ?? defaultTargetPlatform) == TargetPlatform.iOS)
-            ? CupertinoActivityIndicator(
-                radius: this.radius,
-              )
-            : CircularProgressIndicator(
-                backgroundColor: backgroundColor,
-                strokeWidth: strokeWidth,
-                valueColor: valueColor,
-                value: value,
-              );
+    var spinner = !kIsWeb && ((platform ?? defaultTargetPlatform) == TargetPlatform.iOS)
+        ? CupertinoActivityIndicator(
+            radius: this.radius,
+          )
+        : CircularProgressIndicator(
+            backgroundColor: backgroundColor,
+            strokeWidth: strokeWidth,
+            valueColor: valueColor,
+            value: value,
+          );
 
     return WidgetSelector(
       buildEvents: busyEvents,
-      onTrue: Center(
-          child: Container(
-              width: this.radius * 2, height: this.radius * 2, child: spinner)),
+      onTrue: Center(child: Container(width: this.radius * 2, height: this.radius * 2, child: spinner)),
       onFalse: normal != null ? normal : Container(),
     );
   }
@@ -129,8 +125,7 @@ class _RxLoaderState<R> extends State<RxLoader<R>> {
 
   Stream<CommandResult<dynamic, R>> commandResults;
 
-  CommandResult<dynamic, R> lastReceivedItem =
-      CommandResult<dynamic, R>(null, null, null, false);
+  CommandResult<dynamic, R> lastReceivedItem = CommandResult<dynamic, R>(null, null, null, false);
 
   _RxLoaderState(this.commandResults);
 
@@ -164,8 +159,7 @@ class _RxLoaderState<R> extends State<RxLoader<R>> {
 
   @override
   Widget build(BuildContext context) {
-    var spinner = !kIsWeb &&
-            ((widget.platform ?? defaultTargetPlatform) == TargetPlatform.iOS)
+    var spinner = !kIsWeb && ((widget.platform ?? defaultTargetPlatform) == TargetPlatform.iOS)
         ? CupertinoActivityIndicator(
             key: widget.spinnerKey,
             radius: this.widget.radius,
@@ -178,11 +172,7 @@ class _RxLoaderState<R> extends State<RxLoader<R>> {
             value: widget.value,
           );
     if (lastReceivedItem.isExecuting) {
-      return Center(
-          child: Container(
-              width: this.widget.radius * 2,
-              height: this.widget.radius * 2,
-              child: spinner));
+      return Center(child: Container(width: this.widget.radius * 2, height: this.widget.radius * 2, child: spinner));
     }
     if (lastReceivedItem.hasData) {
       if (widget.dataBuilder != null) {

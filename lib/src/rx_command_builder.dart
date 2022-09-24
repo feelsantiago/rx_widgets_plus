@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rx_command/rx_command.dart';
-import 'package:rx_widgets/src/builder_functions.dart';
+import 'package:rx_widgets_plus/src/builder_functions.dart';
 
 /// Spinner/Busy indicator that reacts on the output of a `Stream<CommandResult<dynamic, R>>`.
 /// It's made especially to work together with `RxCommand` from the `rx_command`package.
@@ -58,8 +58,7 @@ class RxCommandBuilder<T, R> extends StatelessWidget {
       if (busyBuilder != null) {
         return busyBuilder!(context);
       } else {
-        final spinner = (!kIsWeb &&
-                (platform ?? defaultTargetPlatform) == TargetPlatform.iOS)
+        final spinner = (!kIsWeb && (platform ?? defaultTargetPlatform) == TargetPlatform.iOS)
             ? const CupertinoActivityIndicator()
             : const CircularProgressIndicator();
         return Center(child: spinner);
@@ -76,9 +75,7 @@ class RxCommandBuilder<T, R> extends StatelessWidget {
 
     if (item.hasError) {
       if (errorBuilder != null) {
-        final commandError = item.error is CommandError<T>
-            ? item.error!
-            : CommandError<T>(item.paramData, item.error);
+        final commandError = item.error is CommandError<T> ? item.error! : CommandError<T>(item.paramData, item.error);
         return errorBuilder!(context, commandError);
       } else {
         return const SizedBox();

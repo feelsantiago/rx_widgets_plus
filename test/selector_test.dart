@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rx_widgets/src/widget_selector.dart';
+import 'package:rx_widgets_plus/src/widget_selector.dart';
 
 void main() {
   testWidgets("ReactiveSelector - on true", (tester) async {

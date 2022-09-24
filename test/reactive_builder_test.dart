@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rx_widgets/src/reactive_builder.dart';
+import 'package:rx_widgets_plus/src/reactive_builder.dart';
 
 void main() {
   testWidgets("When stream receive a data ", (tester) async {
@@ -25,8 +25,7 @@ void main() {
     await _controller.close();
   });
 
-  testWidgets(
-      "When not receive any data and no streamEmptyBuilder is passed - Expected the CircularProgressIndicator",
+  testWidgets("When not receive any data and no streamEmptyBuilder is passed - Expected the CircularProgressIndicator",
       (tester) async {
     var _controller = StreamController<String>();
 
@@ -45,8 +44,7 @@ void main() {
     await _controller.close();
   });
 
-  testWidgets(" When not receive any data - Expected text containing Loading",
-      (tester) async {
+  testWidgets(" When not receive any data - Expected text containing Loading", (tester) async {
     var _controller = StreamController<String>();
 
     var widget = MaterialApp(
@@ -68,9 +66,7 @@ void main() {
     await _controller.close();
   });
 
-  testWidgets(
-      "When ReactiveBuilder receive a erro and no errorBuilder is passed",
-      (tester) async {
+  testWidgets("When ReactiveBuilder receive a erro and no errorBuilder is passed", (tester) async {
     var _controller = StreamController<String>();
 
     var widget = MaterialApp(

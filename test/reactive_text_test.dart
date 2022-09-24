@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rx_widgets/rx_widgets.dart';
+import 'package:rx_widgets_plus/rx_widgets.dart';
 
 void main() {
   testWidgets("ReactiveText - When have data", (tester) async {
@@ -42,9 +42,7 @@ void main() {
     await _controller.close();
   });
 
-  testWidgets(
-      "ReactiveText - When the stream receive a error and errorBuilder is passed ",
-      (tester) async {
+  testWidgets("ReactiveText - When the stream receive a error and errorBuilder is passed ", (tester) async {
     var _controller = StreamController<String>();
 
     var errorKey = Key("ErrorKey");
@@ -65,9 +63,7 @@ void main() {
     await _controller.close();
   });
 
-  testWidgets(
-      "ReactiveText - When the stream receive a error and no errorBuilder is passed ",
-      (tester) async {
+  testWidgets("ReactiveText - When the stream receive a error and no errorBuilder is passed ", (tester) async {
     var _controller = StreamController<String>();
 
     var widget = MaterialApp(
@@ -85,9 +81,7 @@ void main() {
     await _controller.close();
   });
 
-  testWidgets(
-      "ReactiveText - When the stream is empty and no streamEmptyBuilder is passed ",
-      (tester) async {
+  testWidgets("ReactiveText - When the stream is empty and no streamEmptyBuilder is passed ", (tester) async {
     var _controller = StreamController<String>();
 
     var widget = MaterialApp(
@@ -104,9 +98,7 @@ void main() {
     await _controller.close();
   });
 
-  testWidgets(
-      "ReactiveText - When the stream is empty and streamEmptyBuilder is passed ",
-      (tester) async {
+  testWidgets("ReactiveText - When the stream is empty and streamEmptyBuilder is passed ", (tester) async {
     var _controller = StreamController<String>();
 
     var emptyKey = Key("EmptyKey");
