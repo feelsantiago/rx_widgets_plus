@@ -5,66 +5,37 @@
 ## About
 
 A package with stream based Flutter Widgets that facilitate an reactive programming style.
- 
-Was built to be used especially in combination with [RxDart](https://github.com/ReactiveX/rxdart) 
+
+Was built to be used especially in combination with [RxDart](https://github.com/ReactiveX/rxdart)
 and [RxCommands](https://github.com/escamoteur/rx_command).
 
->If you have any ideas for additional stream based Widget, open an issue
->PRs are always welcome ;-)
+> If you have any ideas for additional stream based Widget, open an issue
+> PRs are always welcome ;-)
 
 ## Getting Started
 
-Add to your `pubspec.yaml` dependencies to  `rx_widgets`
+Add to your `pubspec.yaml` dependencies to `rx_widgets`
 
 ## Widgets Available
-- [RxRaisedButton](#rxraisedbutton)
-- [RxText](#rxtext)
-- [RxLoader](#rxloader)
-- [RxSpinner](#rxspinner)
-- [WidgetSelector](#widgetselector)
-- [RxCommandBuilder](#rxcommandbuilder)
-- [ReactiveBuilder](#reactivebuilder)
-- [ReactiveWidget](#reactivewidget)
-- [RxCommandHandlerMixin](#rxcommandhandlermixin)
 
-### RxRaisedButton
-Creates a `RaisedButton` that has an `rxCommand` instead of `onPressed`. It gets disabled if the command has canExecute:false or when isExecuting:true
-
-An extended `RaisedButton` where the `onPressed` is replaced with `rxCommand` and it gets disabled if the `rxCommand` has the `canExecute` set to `false` or when it is executing.
-
-```Dart
-RxRaisedButton({
-    Key key,
-    // The RxCommand.
-    this.rxCommand,
-    this.child,
-    this.onHighlightChanged,
-    this.textTheme,
-    this.textColor,
-    this.disabledTextColor,
-    this.color,
-    this.disabledColor,
-    this.highlightColor,
-    this.splashColor,
-    this.colorBrightness,
-    this.elevation,
-    this.highlightElevation,
-    this.disabledElevation,
-    this.padding,
-    this.shape,
-    this.materialTapTargetSize,
-    this.animationDuration,
-  });
-```
-
+-   [RxText](#rxtext)
+-   [RxLoader](#rxloader)
+-   [RxSpinner](#rxspinner)
+-   [WidgetSelector](#widgetselector)
+-   [RxCommandBuilder](#rxcommandbuilder)
+-   [ReactiveBuilder](#reactivebuilder)
+-   [ReactiveWidget](#reactivewidget)
+-   [RxCommandHandlerMixin](#rxcommandhandlermixin)
 
 ### RxText
-A `Text` that takes in a `Stream<String>` and displays it. An example of usage can be when showing status message , or results of some requests. 
 
-**errorBuilder**  is a method that is called when the stream receives an error. By default this method returns a Text containing the error.
+A `Text` that takes in a `Stream<String>` and displays it. An example of usage can be when showing status message , or results of some requests.
+
+**errorBuilder** is a method that is called when the stream receives an error. By default this method returns a Text containing the error.
 
 **placeHolderBuilder** is a method that is called when the stream has no data. By default this method returns a CircularProgressIndicator.
 **initialData** parameter that can be used to provide a starting value, just like in StreamBuilder.
+
 ```Dart
     RxText({
     // New parameters.
@@ -72,7 +43,7 @@ A `Text` that takes in a `Stream<String>` and displays it. An example of usage c
     String initialData,
     this.errorBuilder,
     this.placeHolderBuilder,
-    
+
     // Normal Text parameters.
     Key key,
     this.style,
@@ -86,10 +57,10 @@ A `Text` that takes in a `Stream<String>` and displays it. An example of usage c
     this.semanticsLabel,
   });
 ```
+
 ### RxSpinner
 
-Spinner/Busy indicator that reacts on the output of a `Stream<bool>` it starts running as soon as a `true` value is received until the next `false`is emitted. If the Spinner should replace another Widget while Spinning this widget can be passed as `normal` parameter. `RxSpinner` also adapts to the current or specified platform look. Needless to say that `RxSpinner` is ideal in combination with `RxCommand's` `isExecuting` Observable 
-
+Spinner/Busy indicator that reacts on the output of a `Stream<bool>` it starts running as soon as a `true` value is received until the next `false`is emitted. If the Spinner should replace another Widget while Spinning this widget can be passed as `normal` parameter. `RxSpinner` also adapts to the current or specified platform look. Needless to say that `RxSpinner` is ideal in combination with `RxCommand's` `isExecuting` Observable
 
 **busyEvents** `Stream<bool>` that controls the activity of the Spinner. On receiving `true` it replaces the `normal` widget and starts running undtil it receives a `false`value.
 
@@ -101,24 +72,23 @@ Spinner/Busy indicator that reacts on the output of a `Stream<bool>` it starts r
 All other parameters please see https://docs.flutter.io/flutter/material/CircularProgressIndicator-class.html.
 
 `RxSpinner` are ignored if the platform style is iOS.
+
 ```Dart
-RxSpinner({    
-    Key key, 
-    this.busyEvents, 
-    this.platform, 
-    this.radius = 20.0,  
+RxSpinner({
+    Key key,
+    this.busyEvents,
+    this.platform,
+    this.radius = 20.0,
     this.backgroundColor,
     this.value,
     this.valueColor,
     this.strokeWidth: 4.0,
-    this.normal});         
+    this.normal});
 ```
-
 
 ### RxLoader
 
-RxSpinner is great for simple Applications where you just want to show or hide a Spinner. But often especially when loading data you want to deal with errors and show an alternative Widget if no data arrived. Since `RxCommand` offers not only three separate Observables for state changes and results but is also an `Observable<CommandResult<T>` itself that emits  `CommandResult` that bundle all state and data in one Object `RxLoader`leverage this to support the Flutter update mechanic better.
-
+RxSpinner is great for simple Applications where you just want to show or hide a Spinner. But often especially when loading data you want to deal with errors and show an alternative Widget if no data arrived. Since `RxCommand` offers not only three separate Observables for state changes and results but is also an `Observable<CommandResult<T>` itself that emits `CommandResult` that bundle all state and data in one Object `RxLoader`leverage this to support the Flutter update mechanic better.
 
 **busyEvents** `Stream<bool>` that controls the activity of the Spinner. On receiving `true` it replaces the `normal` widget and starts running undtil it receives a `false`value.
 
@@ -128,7 +98,7 @@ RxSpinner is great for simple Applications where you just want to show or hide a
 
 **dataBuilder** Builder that will be called as soon as an event with data is received. It will get passed the `data` feeld of the CommandResult.
 
-**placeHolderBuilder** Builder that will be called as soon as an event with `data==null` is received. 
+**placeHolderBuilder** Builder that will be called as soon as an event with `data==null` is received.
 
 **errorBuilder** Builder that will be called as soon as an event with an `error` is received. It will get passed the `error` feeld of the CommandResult.
 
@@ -137,22 +107,22 @@ All other parameters please see https://docs.flutter.io/flutter/material/Circula
 
 ```Dart
 RxLoader({
-    Key key 
-    this.commandResults, 
-    this.platform, 
-    this.radius = 20.0,  
+    Key key
+    this.commandResults,
+    this.platform,
+    this.radius = 20.0,
     this.backgroundColor,
     this.value,
     this.valueColor,
     this.strokeWidth: 4.0,
-    this.dataBuilder, 
-    this.placeHolderBuilder, 
+    this.dataBuilder,
+    this.placeHolderBuilder,
     this.errorBuilder,
 });
 ```
 
-
 ### WidgetSelector
+
 `WidgetSelector`is a convenience class that will return one of two Widgets based on the output of a `Stream<bool>` This is pretty handy if you want to react to state change like enable/disable in you ViewModel and update the View accordingly.
 
 If you don't need builders for the alternative child widgets this class offers a more concise expression than `WidgetBuilderSelector`
@@ -165,7 +135,7 @@ If you don't need builders for the alternative child widgets this class offers a
 
 **errorBuilder** Builder that will be called as soon as an event with an `error` is received. It will get passed the `error` feeld of the CommandResult.
 
-**placeHolderBuilder** Builder that will be called as soon as an event with `data==null` is 
+**placeHolderBuilder** Builder that will be called as soon as an event with `data==null` is
 received.
 
 **initialData** can be used to provide an initial value just as it does in StreamBuilder.
@@ -183,6 +153,7 @@ received.
 ```
 
 #### WidgetSelector Example
+
 This is an example where it is used to enable/disable a Button
 
 ```Dart
@@ -200,19 +171,15 @@ WidgetSelector(
     );
 ```
 
-
 ### WidgetBuilderSelector
 
- Like `WidgetSelector` but instead return Widgets it executes one of two provided builder functions. 
- In comparison to `WidgetSelector` this is best used if the alternative child widgets are large so that you don't want to have them always created without using them. 
-
-
+Like `WidgetSelector` but instead return Widgets it executes one of two provided builder functions.
+In comparison to `WidgetSelector` this is best used if the alternative child widgets are large so that you don't want to have them always created without using them.
 
 ### RxCommandBuilder
 
 If you are working with `RxCommands` this is a special Builder that lets you define different builder for the different states an RxCommand can issue.
 If you don't specify one of the builders it will create a `Container` for that state.
-
 
 **commandResults** `Stream<bool>` .`Stream<CommandResult<T>>` or a `RxCommand<T>` that issues `CommandResults`
 
@@ -220,27 +187,28 @@ If you don't specify one of the builders it will create a `Container` for that s
 
 **dataBuilder** Builder that will be called as soon as an event with data is received. It will get passed the `data` feeld of the CommandResult. It will get passed the `data` feeld of the CommandResult.
 
-**placeHolderBuilder** Builder that will be called as soon as an event with `data==null` is received. **If this is null** a `Container` will be created instead.  
+**placeHolderBuilder** Builder that will be called as soon as an event with `data==null` is received. **If this is null** a `Container` will be created instead.
 
 **errorBuilder** Builder that will be called as soon as an event with an `error` is received. It will get passed the `error` feeld of the CommandResult.
 
-``` dart
+```dart
 const RxCommandBuilder({Key key,
-        this.commandResults, 
-        this.platform, 
-        this.radius = 20.0,  
+        this.commandResults,
+        this.platform,
+        this.radius = 20.0,
         this.backgroundColor,
         this.value,
         this.valueColor,
         this.strokeWidth: 4.0,
         this.busyBuilder,
-        this.dataBuilder, 
-        this.placeHolderBuilder, 
+        this.dataBuilder,
+        this.placeHolderBuilder,
         this.errorBuilder,
-        }) 
+        })
 ```
 
 ### ReactiveBuilder
+
 Widget built to encapsulate StreamBuilder.
 
 **stream** `Stream<T>` that controls the widget.
@@ -251,9 +219,9 @@ Widget built to encapsulate StreamBuilder.
 
 **placeHolderBuilder** is a method that will be cal when the stream is initialized without data or when receive a null data. By default this method returns a CircularProgressIndicator.
 
-**errorBuilder** is a method that will be call when the stream receive a error. By default this method returns a Text containing the error. 
+**errorBuilder** is a method that will be call when the stream receive a error. By default this method returns a Text containing the error.
 
-``` dart
+```dart
 const ReactiveBuilder({
     Key key,
     @required Stream<T> stream,
@@ -266,7 +234,7 @@ const ReactiveBuilder({
 
 #### ReactiveBuilder Example
 
-``` dart
+```dart
 class Animal {
   String name;
   int age;
@@ -293,6 +261,7 @@ class Example extends StatelessWidget {
 ```
 
 ### ReactiveWidget
+
 Widget built to encapsulate StreamBuilder.
 
 Similar to **ReactiveBuilder** but doesn't require `BuiltContext` in its parameters
@@ -308,7 +277,8 @@ Similar to **ReactiveBuilder** but doesn't require `BuiltContext` in its paramet
 **errorWidget** is a method that will be call when the stream receive a error. By default this method returns a Text containing the error.
 
 #### ReactiveWidget Example
-``` dart
+
+```dart
 class Animal {
   String name;
   int age;
@@ -334,20 +304,19 @@ class Example extends StatelessWidget {
 }
 ```
 
-
-### RxCommandHandlerMixin 
+### RxCommandHandlerMixin
 
 Adds ability to listen om RxCommand events inside Stateless and Stateful Widgets.
 
-Add **RxCommandHandlerMixin** to your `Stateless Widget` or  
-**RxCommandStatefulHandlerMixin**  to your `Stateful Widget` and override 
-**RxCommandListener get commandListener**.  
- 
-It will add your widget to get an ability to listen for events from command and make actions 
+Add **RxCommandHandlerMixin** to your `Stateless Widget` or
+**RxCommandStatefulHandlerMixin** to your `Stateful Widget` and override
+**RxCommandListener get commandListener**.
+
+It will add your widget to get an ability to listen for events from command and make actions
 specified in **RxCommandListener** when its streams fire events.
 
-Mixin will take care of RxCommandListener init dispose. This way you can keep your widget stateless. 
-Or if it is already stateful - don't need to write code for that. 
+Mixin will take care of RxCommandListener init dispose. This way you can keep your widget stateless.
+Or if it is already stateful - don't need to write code for that.
 
 #### RxCommandHandlerMixin Example
 
@@ -382,4 +351,3 @@ final _command = RxCommand.createSyncNoParam<DateTime>(() {
   }
 });
 ```
-
